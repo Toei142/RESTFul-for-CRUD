@@ -3,34 +3,33 @@ include_once "db.php";
 session_start();
 $_SESSION['customerID'] = 1;
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (isset($_GET['productList'])) {
+    if (isset($_GET['productList'])) { //แสดงสินค้าทัังหมด
         echo json_encode(showProductList());
-    } else if (isset($_GET['productByID'])) {
-        echo json_encode(showProductByID($_GET['id']));
-    } else if (isset($_GET['showOrderByCustomerID'])) {
+    } else if (isset($_GET['showOrderByCustomerID'])) { //แสดงสินค้าที่ลูกค้าซื้อ
         echo json_encode(showOrder($_SESSION['customerID']));
-    } else if (isset($_GET['showOrderListByCustomerID'])) {
+    } else if (isset($_GET['showOrderListByCustomerID'])) { //แสดงบิลสินค้าที่ลูกค้าซื้อ
         echo json_encode(showOrderByCustomerID());
-    } else if (isset($_GET['showOrderDetailByCustomerID'])) {
+    } else if (isset($_GET['showOrderDetailByCustomerID'])) { //แสดงรายการสินค้าที่อยู๋ในบิล
         echo json_encode(showOrderDetailByCustomerID());
-    } else if (isset($_GET['numOrderProductByOrderId'])) {
+    } else if (isset($_GET['numOrderProductByOrderId'])) { //แสดงจำนวนที่ลูกค้าซื้อ โดยนับจากสินค้าที่ต่างกัน
         echo json_encode(numOrderProductByOrderId());
     }
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['insertProuct'])) {
+    if (isset($_POST['insertProuct'])) { //เพิ่มสินค้า ใช้ Postman ในการเพิ่ม
         echo   json_encode(insertProduct());
-    } else if (isset($_POST['addOrder'])) {
+    } else if (isset($_POST['addOrder'])) { //เพิ่ม order
         if (openOrder()) {
             echo 1;
         } else echo 0;
-    } else if (isset($_POST['closeOrder'])) {
+    } else if (isset($_POST['closeOrder'])) { //ชำระเงินเพื่อปิด order
         if (closeOrder()) {
             echo 1;
         } else echo 0;
     }
-} else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    $message = array("status" => print_r($_GET['u_id']));
-    echo json_encode($message);
+} else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') { //ลบสินค้าที่ไม่ต้องการซื้อ
+    echo json_encode(deleteProduct());
+    // $message = array("status" => print_r($_GET['u_id']));
+    // echo json_encode($message);
 } else {
     http_response_code(405);
 }
@@ -46,25 +45,32 @@ function insertProduct()
     return $mydb->exec($sql);
 }
 
-function insertMember($name, $user, $password)
+// function insertMember($name, $user, $password)
+// {
+//     $mydb = new db();
+//     return  $mydb->exec("INSERT INTO `member`SELECT MAX(member_id)+1,'{$name}','{$user}','{$password}','01' FROM member");
+//     $mydb->close();
+// }
+
+
+// function login($user, $pass)
+// {
+//     $mydb = new db();
+//     $data = $mydb->query("SELECT * FROM `member` WHERE `user`='{$user}' AND `password`='{$pass}'");
+//     if ($data != null) {
+//         $_SESSION['cus_id'] = 1;
+//         return $data;
+//     }
+//     $mydb->close();
+// }
+
+
+function deleteProduct()
 {
     $mydb = new db();
-    return  $mydb->exec("INSERT INTO `member`SELECT MAX(member_id)+1,'{$name}','{$user}','{$password}','01' FROM member");
-    $mydb->close();
+    $sql = "DELETE FROM `orderdetails` WHERE `orderID`={$_GET['oid']} AND `productId`={$_GET['pid']}";
+    return $mydb->exec($sql);
 }
-
-
-function login($user, $pass)
-{
-    $mydb = new db();
-    $data = $mydb->query("SELECT * FROM `member` WHERE `user`='{$user}' AND `password`='{$pass}'");
-    if ($data != null) {
-        $_SESSION['cus_id'] = 1;
-        return $data;
-    }
-    $mydb->close();
-}
-
 function showProductList()
 {
     $mydb = new db();
@@ -76,7 +82,7 @@ function showOrder($id)
 {
     $mydb = new db();
     $result = $mydb->query("SELECT * FROM `orders` WHERE status =0 AND customerID=$id", MYSQLI_NUM);
-    $result2 = $mydb->query("  SELECT p.name,o.quantity,o.unitPrice,p.image FROM orderdetails as o,product as p WHERE o.orderID={$result[0][0]} AND o.productId=p.productID", MYSQLI_ASSOC);
+    $result2 = $mydb->query("  SELECT p.name,o.quantity,o.unitPrice,p.image,o.orderID,o.productID FROM orderdetails as o,product as p WHERE o.orderID={$result[0][0]} AND o.productId=p.productID", MYSQLI_ASSOC);
     return array("0" => $result, "1" => $result2);
 }
 function showOrderByCustomerID()

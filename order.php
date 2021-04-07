@@ -90,7 +90,7 @@
                     text = "<tr>" + text + "</tr>";
 
                     text += "<tr>"
-                    text += "<th>ชื่อสินค้า</th><th>รูป</th><th>จำนวน</th><th>ราคา</th><th>ราคารวม</th>"
+                    text += "<th>ชื่อสินค้า</th><th>รูป</th><th>จำนวน</th><th>ราคา</th><th>ราคารวม</th><th>จัดการ</th>"
                     text += "</tr>";
                     total = 0;
                     for (a = 0; a < arr[1].length; a++) {
@@ -99,8 +99,8 @@
                         text += "<td><img src='" + arr[1][a].image + "' alt='' style='width: 50px;'></td>";
                         text += "<td>" + arr[1][a].quantity + "</td>";
                         text += "<td>" + arr[1][a].unitPrice + "</td>";
-
                         text += "<td>" + arr[1][a].quantity * arr[1][a].unitPrice + "</td>";
+                        text += "<td><button class='btn btn-danger' onclick='delPd(" + arr[1][a].orderID + "," + arr[1][a].productID + ")'>ลบ</button></td>";
                         text += "</tr > ";
                         total += parseInt(arr[1][a].quantity * arr[1][a].unitPrice);
                     }
@@ -135,13 +135,26 @@
                         alert("ชำระเงิน");
                         numProductInOrder();
                         showOrder();
-                       
+
                     } else alert("ชำระเงินไม่สำเร็จ");
                 }
             }
             xhttp.open("POST", "rest.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("closeOrder&orderID=" + id);
+        }
+
+        function delPd(oid, pid) {
+            //alert(oid + " " + pid);
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    showOrder();
+                    numProductInOrder();
+                }
+            }
+            xhttp.open("DELETE", "rest.php?oid=" + oid + "&pid=" + pid);
+            xhttp.send();
         }
     </script>
 </body>
