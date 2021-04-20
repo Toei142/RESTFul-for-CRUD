@@ -12,8 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <style>
-        /* button */
-
         .button2 {
             display: inline-block;
             border-radius: 4px;
@@ -120,7 +118,7 @@
                 if (this.readyState == 4 && this.status == 200) {
                     data = JSON.parse(this.responseText);
                     for (i = 0; i < data.length; i++) {
-                        text += "<div class='col-3' style='padding:10px'>";
+                        text += "<div class='col-sm-12 col-md-6 col-lg-3' style='padding:10px'>";
                         text += '<div class="card shadow p-3 mb-5 bg-body rounded" style="width: 15rem;border:none; ">';
                         text += '<img src="' + data[i].image + '" class="card-img-top rounded mx-auto d-block" style="width: 100px;">';
                         text += '<div class="card-body">';

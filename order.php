@@ -88,7 +88,6 @@
                         text += "<td scope='col' colspan='  2'>" + (arr[0][0][3] == 0 ? '<span class="badge bg-danger">รอการชำระเงิน</span>' : 'ชำระเงินแล้ว') + "</td>";
                     }
                     text = "<tr>" + text + "</tr>";
-
                     text += "<tr>"
                     text += "<th>ชื่อสินค้า</th><th>รูป</th><th>จำนวน</th><th>ราคา</th><th>ราคารวม</th><th>จัดการ</th>"
                     text += "</tr>";
@@ -120,7 +119,6 @@
                 if (this.readyState == 4 && this.status == 200) {
                     json = JSON.parse(this.responseText);
                     document.getElementById("num").innerHTML = json[0].num;
-
                 }
             }
             xhttp.open("GET", "rest.php?numOrderProductByOrderId", true);
@@ -135,7 +133,6 @@
                         alert("ชำระเงิน");
                         numProductInOrder();
                         showOrder();
-
                     } else alert("ชำระเงินไม่สำเร็จ");
                 }
             }
@@ -145,7 +142,6 @@
         }
 
         function delPd(oid, pid) {
-            //alert(oid + " " + pid);
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {

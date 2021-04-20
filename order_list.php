@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>รายการสินค้า</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-
-
 </head>
 
 <body style="margin: 0;">
@@ -56,10 +53,7 @@
             </div>
         </div>
     </nav>
-
-
     <div class="container" style="margin-top: 50px; ">
-
         <div class="shadow p-3 mb-5 bg-body rounded">
             <table class="table" style="margin: 50px; width: 90%;">
                 <thead>
@@ -87,7 +81,6 @@
                 if (this.readyState == 4 && this.status == 200) {
                     json = JSON.parse(this.responseText);
                     document.getElementById("num").innerHTML = json[0].num;
-
                 }
             }
             xhttp.open("GET", "rest.php?numOrderProductByOrderId", true);
@@ -115,21 +108,6 @@
             }
             xhttp.open("GET", "rest.php?showOrderListByCustomerID", true);
             xhttp.send();
-        }
-
-        function pay(id) {
-            let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    if (this.responseText == 1) {
-                        alert("ชำระเงิน");
-                        showOrder();
-                    } else alert("ชำระเงินไม่สำเร็จ");
-                }
-            }
-            xhttp.open("POST", "rest.php", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("closeOrder&orderID=" + id);
         }
     </script>
 </body>

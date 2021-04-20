@@ -44,27 +44,6 @@ function insertProduct()
     VALUES ('$base64','{$_POST['name']}',{$_POST['number']},{$_POST['price']})";
     return $mydb->exec($sql);
 }
-
-// function insertMember($name, $user, $password)
-// {
-//     $mydb = new db();
-//     return  $mydb->exec("INSERT INTO `member`SELECT MAX(member_id)+1,'{$name}','{$user}','{$password}','01' FROM member");
-//     $mydb->close();
-// }
-
-
-// function login($user, $pass)
-// {
-//     $mydb = new db();
-//     $data = $mydb->query("SELECT * FROM `member` WHERE `user`='{$user}' AND `password`='{$pass}'");
-//     if ($data != null) {
-//         $_SESSION['cus_id'] = 1;
-//         return $data;
-//     }
-//     $mydb->close();
-// }
-
-
 function deleteProduct()
 {
     $mydb = new db();
