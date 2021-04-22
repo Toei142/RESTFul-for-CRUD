@@ -35,13 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 function insertProduct()
 {
-    $path = $_FILES['img']['tmp_name'];
-    $type = pathinfo($path, PATHINFO_EXTENSION);
-    $data = file_get_contents($path);
-    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    //for postman
+    // $path = $_FILES['img']['tmp_name'];
+    // $type = pathinfo($path, PATHINFO_EXTENSION);
+    // $data = file_get_contents($path);
+    // $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
     $mydb = new db();
     $sql = "INSERT INTO `product`(`image`, `name`, `stock`, `cost`) 
-    VALUES ('$base64','{$_POST['name']}',{$_POST['number']},{$_POST['price']})";
+    VALUES ('{$_POST['img']}','{$_POST['name']}',{$_POST['number']},{$_POST['price']})";
     return $mydb->exec($sql);
 }
 function deleteProduct()
