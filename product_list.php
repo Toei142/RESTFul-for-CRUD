@@ -63,7 +63,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-body rounded">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ITI SHOP</a>
+            <a class="navbar-brand" href="#"><span class="text-primary" style="font-weight: bold;">ITI</span> <span class="badge bg-primary">SHOP</span> </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -103,6 +103,9 @@
     </nav>
 
     <div class="container" style="width: 70%;">
+        <div>
+            <h1 style="font-weight: bold;">รายการสินค้า</h1>
+        </div>
         <div class="row" id="product" style="text-align: center;">
         </div>
 

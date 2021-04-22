@@ -11,14 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-
-
 </head>
 
 <body style="margin: 0;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-body rounded">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ITI SHOP</a>
+            <a class="navbar-brand" href="#"><span class="text-primary" style="font-weight: bold;">ITI</span> <span class="badge bg-primary">SHOP</span> </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -59,7 +57,7 @@
 
 
     <div class="container" style="margin-top: 50px; ">
-
+    <div><h1 style="font-weight: bold;">รายการสั่งซื้อ</h1></div>
         <div class="shadow p-3 mb-5 bg-body rounded">
             <table class="table" style="margin: 50px; width: 90%;">
                 <tbody id="body">
@@ -72,6 +70,7 @@
         showOrder();
 
         function showOrder() {
+            
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 text = "";
@@ -103,7 +102,7 @@
                         text += "</tr > ";
                         total += parseInt(arr[1][a].quantity * arr[1][a].unitPrice);
                     }
-                    text += '<tr><td colspan="2">ราคารวม</td><td colspan="3">' + total + '</td></tr>';
+                    text += '<tr style="color:green;font-size: 50px;font-weight: bold;"><td colspan="2">ราคารวม</td><td colspan="3">' + total + ' ฿</td></tr>';
                     text += '<tr><td colspan="5"><button class="btn btn-danger" style="width:100px" onclick="pay(' + arr[0][0][0] + ')">ชำระเงิน</button></td></tr>';
                     document.getElementById("body").innerHTML = text;
                 }
